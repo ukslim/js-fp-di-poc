@@ -1,4 +1,4 @@
-#js-fp-di-poc
+# js-fp-di-poc
 
 ### What?
 
@@ -33,13 +33,16 @@ The returned function is the bean.
          
 We can create a bean by calling the factory:
 
-    const helloWorldBean = prefixerBeanBuilder({prefix: 'Hello'});
+    const helloBean = prefixerBeanBuilder({prefix: 'Hello'});
     
 And then we have a first-order function we can call:
 
-    console.log(helloWorldBean('World');
+    console.log(helloBean('World');
     // 'Hello World'
     
+But we don't want to be calling bean builders directly! We want
+the framework to build and wire them for us.
+
 The two `beanFactory` implementations both do the same thing -- 
  they're just written in different styles. They accept a configuration
 referring to components of that style, and returns a map of beans.
@@ -78,8 +81,12 @@ Lots! This is purely a proof of concept.
  - The specification for the bean builders is very narrow
  - Most 'real' DI implementations defer bean creation until needed. 
    So a bean that's not requested directly, nor a dependency of one,
-   will never get built.
+   will never get built. Ours, though, builds all the beans upfront.
  - Autowiring is a whole theme I haven't attempted.
+ - Tons more.
+ 
+As an academic exercise, you could attempt to improve it in any of
+these areas. 
 
 ### Why?
 
@@ -90,13 +97,15 @@ OO pushes you towards using DI.
 I thought:
 
 1. Dependency Injection is ace
-2. There's nothing about FP that means you can't use DI, nor
-   and indeed DI can be useful in FP.
-   
-Pure functions can depend on other pure functions, and DI
-is a powerful way of composing dependent functions.
+2. There's nothing about FP that means you can't use DI,
+   and since functions often depend on one another, DI
+   can be very useful in FP.
 
-Since at my workplace, Wealth Wizards, we do our FP in Javascript
+After all, good FP is all about composable functions, and a (FP)
+DI container is just a function that composes other functions in a
+smart way.
+
+Since at my workplace, [Wealth Wizards](https://www.wealthwizards.com/), we do our FP in Javascript
 and Ramda.js, I went looking for a Javascript DI framework. There
 are plenty of them, but all the ones I found focused on objects
 instantiated with `new` -- which is fine; you could organise pure
