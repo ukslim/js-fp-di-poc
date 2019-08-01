@@ -1,0 +1,9 @@
+{
+  "name": "js-fp-di-poc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "Unlicense",
+  "dependencies": {
+    "ramda": "^0.26.1"
+  }
+}
